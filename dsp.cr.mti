@@ -1,0 +1,85 @@
+{F:/Temp/assignments/GP SOC/DSP/DATA_SYNC.v} {1 {vlog -work work -vopt -stats=none {F:/Temp/assignments/GP SOC/DSP/DATA_SYNC.v}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module DATA_SYNC
+
+Top level modules:
+	DATA_SYNC
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/slave.sv} {1 {vlog -work work -vopt -sv -stats=none {F:/Temp/assignments/GP SOC/DSP/slave.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module ahb_slave
+
+Top level modules:
+	ahb_slave
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/top.sv} {1 {vlog -work work -vopt -sv -stats=none {F:/Temp/assignments/GP SOC/DSP/top.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module top_module
+
+Top level modules:
+	top_module
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/tb.sv} {1 {vlog -work work -vopt -sv -stats=none {F:\Temp\assignments\GP SOC\DSP\tb.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module tb_top_module
+
+Top level modules:
+	tb_top_module
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/dsp_dac.sv} {1 {vlog -work work -vopt -sv -stats=none {F:/Temp/assignments/GP SOC/DSP/dsp_dac.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module dsp_dac
+
+Top level modules:
+	dsp_dac
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/regfile.sv} {1 {vlog -work work -vopt -sv -stats=none {F:/Temp/assignments/GP SOC/DSP/regfile.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module RegFile
+
+Top level modules:
+	RegFile
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/fifo_mem.v} {1 {vlog -work work -vopt -stats=none {F:/Temp/assignments/GP SOC/DSP/fifo_mem.v}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module fifo_mem
+
+Top level modules:
+	fifo_mem
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/BIT_SYNC.v} {1 {vlog -work work -vopt -stats=none {F:/Temp/assignments/GP SOC/DSP/BIT_SYNC.v}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module BIT_SYNC
+
+Top level modules:
+	BIT_SYNC
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/fifo_wr.v} {1 {vlog -work work -vopt -stats=none {F:/Temp/assignments/GP SOC/DSP/fifo_wr.v}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module fifo_wr
+
+Top level modules:
+	fifo_wr
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/dsp_adc.sv} {1 {vlog -work work -vopt -sv -stats=none {F:/Temp/assignments/GP SOC/DSP/dsp_adc.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module dsp_adc
+
+Top level modules:
+	dsp_adc
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/fifo_rd.v} {1 {vlog -work work -vopt -stats=none {F:/Temp/assignments/GP SOC/DSP/fifo_rd.v}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module fifo_rd
+
+Top level modules:
+	fifo_rd
+
+} {} {}} {F:/Temp/assignments/GP SOC/DSP/Async_fifo_rx.v} {1 {vlog -work work -vopt -stats=none {F:/Temp/assignments/GP SOC/DSP/Async_fifo_rx.v}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module Async_fifo
+
+Top level modules:
+	Async_fifo
+
+} {} {}}

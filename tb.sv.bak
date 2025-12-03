@@ -1,0 +1,180 @@
+`timescale 1ns/1ps
+
+module tb_top_module;
+  // Parameters
+  parameter BUS_WIDTH = 8;
+  parameter D_SIZE = 16;
+  parameter DATA_WIDTH = 32;
+  parameter TAP_SIZE = 4;
+
+  // DUT Signals
+  reg clk_ahb, rst_ahb, clk_adc, rst_adc;
+  reg i_hready, i_htrans, i_hwrite, i_hselx;
+  reg [2:0] i_hsize;
+  reg [DATA_WIDTH-1:0] i_haddr, i_hwdata;
+  reg [BUS_WIDTH-1:0] i_adc_data;
+  wire o_hreadyout, o_hresp, irq;
+  wire [DATA_WIDTH-1:0] o_hrdata;
+  wire [BUS_WIDTH-1:0] o_dac_data;
+
+  // DUT Instantiation
+  top_module #(BUS_WIDTH, D_SIZE, DATA_WIDTH, TAP_SIZE) dut (
+    .clk_ahb(clk_ahb), .rst_ahb(rst_ahb), .clk_adc(clk_adc), .rst_adc(rst_adc),
+    .i_hready(i_hready), .i_htrans(i_htrans), .i_hsize(i_hsize), .i_hwrite(i_hwrite),
+    .i_haddr(i_haddr), .i_hwdata(i_hwdata), .i_hselx(i_hselx),
+    .o_hreadyout(o_hreadyout), .o_hresp(o_hresp), .o_hrdata(o_hrdata),
+    .i_adc_data(i_adc_data), .o_dac_data(o_dac_data), .irq(irq)
+  );
+
+  // Clock Generation
+  
+initial begin
+        clk_ahb = 0;
+        forever #1.25 clk_ahb = ~clk_ahb; // 10ns period (100 MHz)
+    end
+
+    // Clock generation for clk2 (e.g., 50 MHz, aligned rising edges)
+    initial begin
+        clk_adc = 0;
+        #1.25; // Delay to align rising edges
+        forever #12.5 clk_adc = ~clk_adc; // 20ns period (50 MHz)
+    end
+  
+
+
+
+  // Reset and Stimulus
+ initial begin
+   clk_ahb= 'b0;
+ rst_ahb= 'b0;
+ clk_adc= 'b0;
+ rst_adc= 'b0;
+ i_hready= 'b0;
+ i_htrans= 'b0;
+ i_hwrite= 'b0;
+ i_hselx= 'b0;
+ i_hsize= 'b0;
+ i_haddr= 'b0;
+ i_hwdata= 'b0;
+ i_adc_data= 'b0;
+  @(posedge clk_ahb)
+    rst_ahb = 1'b0; // rst is activated
+    @(posedge clk_ahb)
+    rst_ahb = 1'b1;
+   
+ 
+   @(posedge clk_adc)
+    rst_adc = 1'b0; // rst is activated
+    @(posedge clk_adc)
+    rst_adc = 1'b1;
+ /////////////////////////////////////////////////////////////  
+ /*  @(posedge clk_ahb)
+      i_hselx = 1;
+	  i_hready = 1;
+	  i_htrans = 1;
+	  i_hsize = 3'b010; 
+      i_hwrite = 1;
+      i_haddr = 'd20;
+	
+	i_adc_data = 8'h05;
+    @(posedge clk_ahb)
+	    i_hwdata = 1;
+	    i_haddr = 0;
+	////////////////////////////////////////////////////////////////////	
+  // Test Case 1: adc to cpu Path
+    @(posedge clk_ahb)
+	    i_hwdata = 1;
+  
+  @(posedge clk_adc) 
+     i_adc_data = 8'h06; #25; 
+     i_adc_data = 8'h07; #25; 
+     i_adc_data = 8'h08; #25; 
+     i_adc_data = 8'h09; #25; 
+	 i_adc_data = 8'h0a; #25; 
+
+ */     // Test Case 2: CPU-to-DAC Path
+   @(posedge clk_ahb)
+      i_hselx = 1;
+	  i_hready = 1;
+	  i_htrans = 1;
+	  i_hsize = 3'b010; 
+      i_hwrite = 1;
+      i_haddr = 8;
+	  
+    @(posedge clk_ahb)
+	  i_hwdata = 5;
+      i_hwrite = 1;
+      i_haddr = 0;
+	  
+    @(posedge clk_ahb)
+	    i_hwdata = 2;	
+		
+
+	
+	i_haddr = 8;
+	 @(posedge clk_ahb)
+	    i_hwdata = 6;		
+ @(posedge clk_ahb)
+	    i_hwdata = 7;		
+	i_hselx = 0;
+  #1000 $stop; // Changed from $stop to $finish
+end
+///////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+/////////////// Signals Initialization //////////////////////////////////
+task initialize;
+ clk_ahb= 'b0;
+ rst_ahb= 'b0;
+ clk_adc= 'b0;
+ rst_adc= 'b0;
+ i_hready= 'b0;
+ i_htrans= 'b0;
+ i_hwrite= 'b0;
+ i_hselx= 'b0;
+ i_hsize= 'b0;
+ i_haddr= 'b0;
+ i_hwdata= 'b0;
+ i_adc_data= 'b0;
+  endtask
+
+///////////////////////// RESET /////////////////////////////////////////////////////////////////////
+task reset_ahb;
+ 
+   @(posedge clk_ahb)
+    rst_ahb = 1'b0; // rst is activated
+    @(posedge clk_ahb)
+    rst_ahb = 1'b1;
+   
+  endtask
+  
+  task reset_adc;
+ 
+   @(posedge clk_adc)
+    rst_adc = 1'b0; // rst is activated
+    @(posedge clk_adc)
+    rst_adc = 1'b1;
+   
+  endtask
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+task data_in_ahb(input [DATA_WIDTH-1:0] data1, input [DATA_WIDTH-1:0] addr1, input rd0_wr1_en1);
+   
+    @(posedge clk_ahb)
+      i_hselx = 1;
+	  i_hready = 1;
+	  i_htrans = 1;
+	  i_hsize = 3'b010; 
+      i_hwrite = rd0_wr1_en1;
+      i_haddr = addr1;
+     
+    @(posedge clk_ahb)
+	    i_hwdata = data1;
+  
+endtask 
+
+
+	
+
+  
+endmodule
